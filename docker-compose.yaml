@@ -1,0 +1,25 @@
+version: "3.9"
+   
+services:
+    db:
+        build:
+            context: ./api/postgresql
+            dockerfile: Postgresql.Dockerfile
+        environment: 
+            - POSTGRES_DB=myproject
+            - POSTGRES_USER=myuser
+            - POSTGRES_PASSWORD=password
+            - PGDATA=/var/lib/postgresql/data/pgdata
+        volumes:
+            - ./data/db:/var/lib/postgresql/data
+
+    api:
+        build:
+            context: ./api/
+            dockerfile: Django.Dockerfile
+        volumes:
+            - .:/api
+        ports:
+            - "8000:8000"
+        depends_on:
+            - db
