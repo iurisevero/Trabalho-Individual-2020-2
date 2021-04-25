@@ -17,9 +17,22 @@ services:
         build:
             context: ./api/
             dockerfile: Django.Dockerfile
+        command: bash django-entrypoint.sh
         volumes:
-            - .:/api
+            - ./api:/api
         ports:
             - "8000:8000"
         depends_on:
             - db
+
+    client:
+        build:
+            context: ./client/
+            dockerfile: Quasar.Dockerfile
+        command: quasar dev
+        volumes:
+            - ./client:/client
+        ports:
+            - "8080:8080"
+        depends_on:
+            - api

@@ -4,4 +4,10 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /api
 # Copy all code files to inside the container
 COPY requirements.txt api task manage.py /api/
-RUN pip3 install -r requirements.txt && python3 manage.py migrate && python3 manage.py runserver
+RUN apt update && \
+    apt install -y netcat-openbsd && \
+    pip3 install -r requirements.txt
+
+# # Entrypoint to wait db be stable before run
+# COPY django-entrypoint.sh /api/
+# CMD ["bash", "/api/django-entrypoint.sh"]
