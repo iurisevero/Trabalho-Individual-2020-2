@@ -9,11 +9,13 @@ on:
   pull_request:
     paths:
       - api/**
-jobs:
-  build:
-    runs-on: ubuntu-latest
 
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: build api container
       run: docker-compose up -d api
+    - name: run api tests
+      run: docker-compose run api python manage.py test
