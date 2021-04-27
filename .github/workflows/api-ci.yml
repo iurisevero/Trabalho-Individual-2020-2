@@ -20,7 +20,7 @@ jobs:
     - name: build api container
       run: docker-compose up --build -d api
     - name: run api tests
-      run: docker-compose run api coverage run --source='.' manage.py test
+      run: docker-compose run api coverage run --source='.' manage.py test --keepdb
   
   coverage:
     needs: [ build_and_test ]
