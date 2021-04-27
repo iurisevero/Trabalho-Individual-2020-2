@@ -6,5 +6,4 @@ WORKDIR /api
 COPY requirements.txt api task manage.py /api/
 RUN apt update && \
     apt install -y netcat-openbsd && \
-    pip3 install --upgrade pip && \
     pip3 install -r requirements.txt
