@@ -6,16 +6,20 @@ services:
             context: ./api/postgresql
             dockerfile: Postgresql.Dockerfile
         ports:
-            - "5432:5432"
+            - 5432:5432
         environment: 
             - POSTGRES_DB=myproject
             - POSTGRES_USER=myuser
             - POSTGRES_PASSWORD=password
             - PGDATA=/var/lib/postgresql/data/pgdata
+            - POSTGRES_HOST_AUTH_METHOD=trust
         volumes:
             - ./data/db:/var/lib/postgresql/data
-        networks:
-            - djangonetwork
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -h db -U myuser"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
 
     api:
         build:
@@ -25,13 +29,11 @@ services:
         volumes:
             - ./api:/api
         ports:
-            - "8000:8000"
+            - 8000:8000
         depends_on:
             - db
         links:
             - db:db
-        networks:
-            - djangonetwork
 
     client:
         build:
@@ -41,10 +43,6 @@ services:
         volumes:
             - ./client:/client
         ports:
-            - "8080:8080"
+            - 8080:8080
         depends_on:
             - api
-
-networks:
-    djangonetwork:
-        driver: bridge
