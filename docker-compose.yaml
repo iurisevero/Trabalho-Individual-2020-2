@@ -14,6 +14,8 @@ services:
             - PGDATA=/var/lib/postgresql/data/pgdata
         volumes:
             - ./data/db:/var/lib/postgresql/data
+        networks:
+            - djangonetwork
 
     api:
         build:
@@ -28,6 +30,8 @@ services:
             - db
         links:
             - db:db
+        networks:
+            - djangonetwork
 
     client:
         build:
@@ -40,3 +44,7 @@ services:
             - "8080:8080"
         depends_on:
             - api
+
+networks:
+    djangonetwork:
+        driver: bridge
