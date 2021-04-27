@@ -19,13 +19,19 @@ services:
         build:
             context: ./api/
             dockerfile: Django.Dockerfile
-        command: bash django-entrypoint.sh
+        command: >
+            bash -c "echo "Waiting for postgres..."
+                    && wget -qO- https://raw.githubusercontent.com/eficode/wait-for/v2.1.1/wait-for | sh -s -- db:5432 -- echo Success
+                    && python3 manage.py migrate
+                    && python3 manage.py runserver 0.0.0.0:8000"
         volumes:
             - ./api:/api
         ports:
             - "8000:8000"
         depends_on:
             - db
+        links:
+            - db:db
 
     client:
         build:
