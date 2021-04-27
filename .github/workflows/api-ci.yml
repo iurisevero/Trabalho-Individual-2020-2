@@ -3,7 +3,7 @@ name: Python CI
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - api/**
   pull_request:
@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: build api container
-      run: docker-compose up -d api
+      run: docker-compose up --build -d api
     - name: run api tests
       run: docker-compose run api coverage run --source='.' manage.py test
   
@@ -25,11 +25,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: paambaati/codeclimate-action@v2.2.4
+    - uses: paambaati/codeclimate-action@v2.7.5
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.TEST_REPORTER_ID }}
       with:
         coverageLocations: |
-          ${{github.workspace}}/*.coverage:.coverage
+          ${{github.workspace}}/*.coverage:coverage
         debug: true
   
