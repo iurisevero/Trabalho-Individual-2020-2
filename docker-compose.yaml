@@ -6,7 +6,7 @@ services:
             context: ./api/postgresql
             dockerfile: Postgresql.Dockerfile
         ports:
-            - "5432:5432"
+            - 5432:5432
         environment: 
             - POSTGRES_DB=myproject
             - POSTGRES_USER=myuser
@@ -29,10 +29,9 @@ services:
         volumes:
             - ./api:/api
         ports:
-            - "8000:8000"
+            - 8000:8000
         depends_on:
-            db:
-                condition: service_healthy
+            - db
         links:
             - db:db
 
@@ -44,6 +43,6 @@ services:
         volumes:
             - ./client:/client
         ports:
-            - "8080:8080"
+            - 8080:8080
         depends_on:
             - api
