@@ -21,6 +21,11 @@ jobs:
       run: docker-compose up --build -d api
     - name: run api tests
       run: docker-compose run api coverage run --source='.' manage.py test --keepdb
+      env:
+        DB_HOST: db
+        DB_NAME: myproject
+        DB_USER: myuser
+        DB_PASSWORD: password
   
   coverage:
     needs: [ build_and_test ]
