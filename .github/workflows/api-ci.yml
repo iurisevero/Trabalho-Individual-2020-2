@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: build api container
-      run: docker-compose up --build -d api
+      run: docker-compose up --build -d db api
     - name: run api tests
       run: docker-compose run api coverage run --source='.' manage.py test
   

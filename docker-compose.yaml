@@ -12,8 +12,14 @@ services:
             - POSTGRES_USER=myuser
             - POSTGRES_PASSWORD=password
             - PGDATA=/var/lib/postgresql/data/pgdata
+            - POSTGRES_HOST_AUTH_METHOD=trust
         volumes:
             - ./data/db:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -h db -U myuser"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
 
     api:
         build:
@@ -25,7 +31,10 @@ services:
         ports:
             - "8000:8000"
         depends_on:
-            - db
+            db:
+                condition: service_healthy
+        links:
+            - db:db
 
     client:
         build:

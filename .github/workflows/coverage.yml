@@ -4,6 +4,7 @@ on:
   workflow_run:
     workflows: ["Node.js CI", "Python CI"]
     types: [completed]
+    branches: [master]
 
 jobs:
   on-success:
