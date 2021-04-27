@@ -7,7 +7,3 @@ COPY requirements.txt api task manage.py /api/
 RUN apt update && \
     apt install -y netcat-openbsd && \
     pip3 install -r requirements.txt
-
-# # Entrypoint to wait db be stable before run
-# COPY django-entrypoint.sh /api/
-# CMD ["bash", "/api/django-entrypoint.sh"]
