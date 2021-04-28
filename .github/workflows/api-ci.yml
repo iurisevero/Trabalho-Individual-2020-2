@@ -19,8 +19,8 @@ jobs:
       run: docker-compose up --build -d db api
     - name: list services
       run: docker-compose ps --services && docker-compose ps && docker ps -a
-    - name: cat settings
-      run: docker-compose run api cat api/settings.py 
+    - name: docker logs
+      run: docker logs db && docker logs api
     - name: run api tests
       run: docker-compose run api coverage run --source='.' manage.py test
   
