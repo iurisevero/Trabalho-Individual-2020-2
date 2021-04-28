@@ -13,7 +13,6 @@ services:
             - POSTGRES_USER=myuser
             - POSTGRES_PASSWORD=password
             - PGDATA=/var/lib/postgresql/data/pgdata
-            - POSTGRES_HOST_AUTH_METHOD=trust
         volumes:
             - ./data/db:/var/lib/postgresql/data
         healthcheck:
