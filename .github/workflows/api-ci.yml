@@ -18,7 +18,11 @@ jobs:
     - name: build api container
       run: docker-compose up --build -d db api
     - name: list services
+<<<<<<< HEAD
       run: docker-compose ps --services && docker-compose ps && docker ps
+=======
+      run: docker-compose ps --services && docker-compose ps && docker ps -a
+>>>>>>> 04b23d41db2f005a58980c32524d72834f5efb53
     - name: cat settings
       run: docker-compose run api cat api/settings.py 
     - name: run api tests
