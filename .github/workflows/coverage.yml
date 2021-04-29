@@ -20,11 +20,12 @@ jobs:
       run: docker-compose up --build -d db api
     - name: test
       run: docker-compose run api coverage run manage.py test
+    - name: generate xml
+      run: docker-compose run api coverage xml
     - uses: paambaati/codeclimate-action@v2.7.5
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.TEST_REPORTER_ID }}
       with:
-        coverageCommand: docker-compose run api coverage xml
           # ${{github.workspace}}/client/test/jest/coverage/lcov.info:lcov
         coverageLocations: |
           ${{github.workspace}}/api/*.xml:coverage.py
