@@ -17,7 +17,7 @@ jobs:
     - name: debug
       run: echo ${{github.workspace}} && ls ${{github.workspace}}/api/
     - name: build
-      run: docker-compose up --build
+      run: docker-compose up --build -d db api
     - uses: paambaati/codeclimate-action@v2.7.5
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.TEST_REPORTER_ID }}
