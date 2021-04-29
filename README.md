@@ -1,3 +1,5 @@
+![API CI Status](https://github.com/iurisevero/Trabalho-Individual-2020-2/actions/workflows/api-ci.yml/badge.svg) ![Client CI Status](https://github.com/iurisevero/Trabalho-Individual-2020-2/actions/workflows/client-ci.yml/badge.svg) [![Maintainability](https://api.codeclimate.com/v1/badges/215b8d2a499a2f5503b3/maintainability)](https://codeclimate.com/github/iurisevero/Trabalho-Individual-2020-2/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/215b8d2a499a2f5503b3/test_coverage)](https://codeclimate.com/github/iurisevero/Trabalho-Individual-2020-2/test_coverage)
+
 # Trabalho Individual 2020.2
 
 
