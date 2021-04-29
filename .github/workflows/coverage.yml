@@ -16,6 +16,6 @@ jobs:
         CC_TEST_REPORTER_ID: ${{ secrets.TEST_REPORTER_ID }}
       with:
         coverageLocations: |
-          ${{github.workspace}}/client/test/jest/coverage/*:lcov-json
-          ${{github.workspace}}/api/*:coverage.py
+          ${{github.workspace}}/client/test/jest/coverage/*.json:lcov-json
+          ${{github.workspace}}/api/*.coverage:coverage.py
         debug: true
