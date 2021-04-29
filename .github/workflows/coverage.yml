@@ -11,11 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: debug
+      run: echo ${{github.workspace} && ls ${{github.workspace}/api/
     - uses: paambaati/codeclimate-action@v2.7.5
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.TEST_REPORTER_ID }}
       with:
+          # ${{github.workspace}}/client/test/jest/coverage/lcov.info:lcov
         coverageLocations: |
-          ${{github.workspace}}/client/test/jest/coverage/lcov.info:lcov
-          ${{github.workspace}}/api/*.coverage:coverage.py
+          ${{github.workspace}}/**.coverage:coverage.py
         debug: true
