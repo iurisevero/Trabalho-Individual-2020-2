@@ -26,4 +26,6 @@ jobs:
       with:
         coverageCommand: docker-compose run api coverage xml
           # ${{github.workspace}}/client/test/jest/coverage/lcov.info:lcov
+        coverageLocations: |
+          ${{github.workspace}}/api/*.xml:coverage.py
         debug: true
