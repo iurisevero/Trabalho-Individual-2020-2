@@ -1,10 +1,13 @@
 name: Coverage
 
 on:
-  workflow_run:
-    workflows: ["Node.js CI", "Python CI"]
-    types: [completed]
-    branches: [master]
+  push:
+    branches:
+      - master
+  # workflow_run:
+  #   workflows: ["Node.js CI", "Python CI"]
+  #   types: [completed]
+  #   branches: [master]
 
 jobs:
   on-success:
