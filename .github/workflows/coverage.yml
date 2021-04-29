@@ -16,10 +16,13 @@ jobs:
     - uses: actions/checkout@v2
     - name: debug
       run: echo ${{github.workspace}} && ls ${{github.workspace}}/api/
+    - name: build
+      run: docker-compose up --build
     - uses: paambaati/codeclimate-action@v2.7.5
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.TEST_REPORTER_ID }}
       with:
+        coverageCommand: docker-compose run api coverage run --source='.' manage.py test
           # ${{github.workspace}}/client/test/jest/coverage/lcov.info:lcov
         coverageLocations: |
           ${{github.workspace}}/api/*.coverage:coverage.py
