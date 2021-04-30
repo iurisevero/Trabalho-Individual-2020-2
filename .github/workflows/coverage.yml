@@ -16,6 +16,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: build
       run: docker-compose up --build -d
+    - name: list services
+      run: docker-compose ps --services && docker-compose ps && docker ps -a
+    - name: docker logs
+      run: docker logs db && docker logs api && docker logs client
     - name: test api
       run: docker-compose run api coverage run manage.py test
     - name: generate api xml
