@@ -53,6 +53,8 @@ plugins:
     enabled: true
   pylint:
     enabled: true
+    plugins:
+      - django
 
 exclude_patterns:
 - "config/"

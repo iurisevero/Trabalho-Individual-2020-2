@@ -15,9 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: build client container
+    - name: Build client container
       run: docker-compose up --build -d client
-    - name: run client tests
+    - name: Run client lint
+      run: docker-compose run client yarn lint
+    - name: Run client tests
       run: docker-compose run client quasar test --unit jest
   
   # coverage:
