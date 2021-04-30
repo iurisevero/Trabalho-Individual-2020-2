@@ -26,8 +26,8 @@ jobs:
       run: docker-compose run api coverage xml
     - name: test client
       run: docker-compose run client quasar test --unit jest
-    - uses: codecov/codecov-action@v1
-      with:
-        files: ${{github.workspace}}/api/coverage.xml, ${{github.workspace}}/client/test/jest/coverage/coverage-final.json
-        fail_ci_if_error: true
-        verbose: true
+    # - uses: codecov/codecov-action@v1
+    #   with:
+    #     files: ${{github.workspace}}/api/coverage.xml, ${{github.workspace}}/client/test/jest/coverage/coverage-final.json
+    #     fail_ci_if_error: true
+    #     verbose: true
