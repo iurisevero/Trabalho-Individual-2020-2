@@ -15,14 +15,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: build api container
+    - name: Build api container
       run: docker-compose up --build -d db api
-    - name: list services
-      run: docker-compose ps --services && docker-compose ps && docker ps -a
-    - name: docker logs
-      run: docker logs db && docker logs api
-    - name: run api tests
-      run: docker-compose run api coverage run --source='.' manage.py test
+    - name: Run api lint
+      run: docker-compose run api bash -c "pylint --load-plugins pylint_django --django-settings-module=api.settings --fail-under=5 ./**/*.py" 
+    - name: Run api tests
+      run: docker-compose run api coverage run --source="." --omit="manage.py" manage.py test
+    - name: Check coverage
+      run: docker-compose run api coverage report --fail-under=80
   
   # coverage:
   #   needs: [ build_and_test ]

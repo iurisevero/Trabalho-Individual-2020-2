@@ -1,21 +1,33 @@
 name: Coverage
 
 on:
-  workflow_run:
-    workflows: ["Node.js CI", "Python CI"]
-    types: [completed]
-    branches: [master]
+  push:
+    branches:
+      - master
+  # workflow_run:
+  #   workflows: ["Node.js CI", "Python CI"]
+  #   types: [completed]
+  #   branches: [master]
 
 jobs:
-  on-success:
+  coverage:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: paambaati/codeclimate-action@v2.7.5
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.TEST_REPORTER_ID }}
-      # with:
-      #   coverageLocations: |
-      #     ${{github.workspace}}/client/test/jest/coverage/*
-      #     ${{github.workspace}}/api/*
-      #   debug: true
+    - name: build
+      run: docker-compose up --build -d
+    - name: list services
+      run: docker-compose ps --services && docker-compose ps && docker ps -a
+    - name: docker logs
+      run: docker logs db && docker logs api && docker logs client
+    - name: test api
+      run: docker-compose run api coverage run manage.py test
+    - name: generate api xml
+      run: docker-compose run api coverage xml
+    - name: test client
+      run: docker-compose run client quasar test --unit jest
+    # - uses: codecov/codecov-action@v1
+    #   with:
+    #     files: ${{github.workspace}}/api/coverage.xml, ${{github.workspace}}/client/test/jest/coverage/coverage-final.json
+    #     fail_ci_if_error: true
+    #     verbose: true
