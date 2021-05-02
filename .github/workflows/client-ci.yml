@@ -20,25 +20,16 @@ jobs:
           paths: '["client/**"]'
 
   build_and_test_client:
+    needs: pre_job
+    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Build client container
-      run: docker-compose up --build -d client
+      run: docker-compose up --build -d 
+    # - name: Setup Debug Session
+    #   uses: csexton/debugger-action@master
     - name: Run client lint
       run: docker-compose run client yarn lint
     - name: Run client tests
       run: docker-compose run client quasar test --unit jest
-  
-  # coverage:
-  #   needs: [ build_and_test ]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - uses: paambaati/codeclimate-action@v2.7.5
-  #     env:
-  #       CC_TEST_REPORTER_ID: ${{ secrets.TEST_REPORTER_ID }}
-  #     with:
-  #       coverageLocations: |
-  #         ${{github.workspace}}/client/test/jest/coverage/*
-  #       debug: true

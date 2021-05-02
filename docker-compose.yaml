@@ -45,6 +45,7 @@ services:
         command: quasar dev
         volumes:
             - ./client:/client
+            - /client/node_modules
         ports:
             - 8080:8080
         depends_on:
