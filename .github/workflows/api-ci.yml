@@ -1,36 +1,36 @@
-name: Python CI
+# name: Python CI
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
+# on:
+#   push:
+#     branches:
+#       - master
+#   pull_request:
 
-jobs:
-  pre_job:
-    continue-on-error: true # Uncomment once integration is finished
-    runs-on: ubuntu-latest
-    # Map a step output to a job output
-    outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
-    steps:
-      - id: skip_check
-        uses: fkirc/skip-duplicate-actions@master
-        with:
-          paths: '["api/**"]'
+# jobs:
+#   pre_job:
+#     continue-on-error: true # Uncomment once integration is finished
+#     runs-on: ubuntu-latest
+#     # Map a step output to a job output
+#     outputs:
+#       should_skip: ${{ steps.skip_check.outputs.should_skip }}
+#     steps:
+#       - id: skip_check
+#         uses: fkirc/skip-duplicate-actions@master
+#         with:
+#           paths: '["api/**"]'
 
-  build_and_test_api:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build api container
-      run: docker-compose up --build -d db api
-    - name: Run api lint
-      run: docker-compose run api bash -c "pylint --load-plugins pylint_django --django-settings-module=api.settings --fail-under=5 ./**/*.py" 
-    - name: Run api tests
-      run: docker-compose run api coverage run --source="." --omit="manage.py" manage.py test
-    - name: Check coverage
-      run: docker-compose run api coverage report --fail-under=80
+#   build_and_test_api:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Build api container
+#       run: docker-compose up --build -d db api
+#     - name: Run api lint
+#       run: docker-compose run api bash -c "pylint --load-plugins pylint_django --django-settings-module=api.settings --fail-under=5 ./**/*.py" 
+#     - name: Run api tests
+#       run: docker-compose run api coverage run --source="." --omit="manage.py" manage.py test
+#     - name: Check coverage
+#       run: docker-compose run api coverage report --fail-under=80
   
   # coverage:
   #   needs: [ build_and_test ]

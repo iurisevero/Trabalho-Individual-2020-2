@@ -7,28 +7,34 @@ on:
   pull_request:
 
 jobs:
-  pre_job:
-    continue-on-error: true # Uncomment once integration is finished
-    runs-on: ubuntu-latest
-    # Map a step output to a job output
-    outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
-    steps:
-      - id: skip_check
-        uses: fkirc/skip-duplicate-actions@master
-        with:
-          paths: '["client/**"]'
+  # pre_job:
+  #   continue-on-error: true # Uncomment once integration is finished
+  #   runs-on: ubuntu-latest
+  #   # Map a step output to a job output
+  #   outputs:
+  #     should_skip: ${{ steps.skip_check.outputs.should_skip }}
+  #   steps:
+  #     - id: skip_check
+  #       uses: fkirc/skip-duplicate-actions@master
+  #       with:
+  #         paths: '["client/**"]'
 
   build_and_test_client:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Build client container
-      run: docker-compose up --build -d client
-    - name: Run client lint
-      run: docker-compose run client yarn lint
-    - name: Run client tests
-      run: docker-compose run client quasar test --unit jest
+      run: docker-compose up --build -d 
+    - name: list services
+      run: docker-compose ps --services && docker-compose ps && docker ps -a
+    - name: docker logs
+      run: docker logs db && docker logs api && docker logs client
+    - name: Setup Debug Session
+      uses: csexton/debugger-action@master
+    # - name: Run client lint
+    #   run: docker-compose run client yarn lint
+    # - name: Run client tests
+    #   run: docker-compose run client quasar test --unit jest
   
   # coverage:
   #   needs: [ build_and_test ]
