@@ -4,13 +4,21 @@ on:
   push:
     branches:
       - master
-    paths:
-      - client/**
   pull_request:
-    paths:
-      - client/**
 
 jobs:
+  pre_job:
+    continue-on-error: true # Uncomment once integration is finished
+    runs-on: ubuntu-latest
+    # Map a step output to a job output
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@master
+        with:
+          paths: '["client/**"]'
+
   build_and_test_client:
     runs-on: ubuntu-latest
     steps:
