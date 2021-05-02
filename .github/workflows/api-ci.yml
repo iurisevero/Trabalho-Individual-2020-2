@@ -20,6 +20,8 @@ jobs:
           paths: '["api/**"]'
 
   build_and_test_api:
+    needs: pre_job
+    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

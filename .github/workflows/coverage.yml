@@ -24,6 +24,7 @@ jobs:
       run: docker-compose run client quasar test --unit jest
     - uses: codecov/codecov-action@v1
       with:
-        files: ${{github.workspace}}/api/coverage.xml, ${{github.workspace}}/client/test/jest/coverage/lcov.info
+        # files: ${{github.workspace}}/api/coverage.xml, ${{github.workspace}}/client/test/jest/coverage/lcov.info
+        directory: ${{github.workspace}}/**
         fail_ci_if_error: true
         verbose: true
