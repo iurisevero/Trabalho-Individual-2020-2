@@ -1,7 +1,9 @@
 echo "Running init_db.sh"
-# o initdb do postgresql cria o banco e define o usuário e a senha
-# não é necessário repetir esse processo aqui
+# postgresql initdb creates the database and sets the username and password
+# there is no need to repeat this process here
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
-    GRANT ALL PRIVILEGES ON DATABASE myproject TO myuser;
-    ALTER USER myuser CREATEDB;
+    \set postgres_db `echo "$POSTGRES_DB"`
+    \set postgres_user `echo "$POSTGRES_USER"`
+    GRANT ALL PRIVILEGES ON DATABASE :postgres_db TO :postgres_user ;
+    ALTER USER :postgres_user CREATEDB;
 EOSQL

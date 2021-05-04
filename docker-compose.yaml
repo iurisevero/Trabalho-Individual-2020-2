@@ -9,11 +9,8 @@ services:
             dockerfile: Postgresql.Dockerfile
         ports:
             - 5432:5432
-        environment: 
-            - POSTGRES_DB=myproject
-            - POSTGRES_USER=myuser
-            - POSTGRES_PASSWORD=password
-            - PGDATA=/var/lib/postgresql/data/pgdata
+        env_file: 
+            .env
         volumes:
             - ./data/db:/var/lib/postgresql/data
         healthcheck:
@@ -28,10 +25,12 @@ services:
             context: ./api/
             dockerfile: Django.Dockerfile
         command: bash django-entrypoint.sh
-        volumes:
-            - ./api:/api
         ports:
             - 8000:8000
+        env_file: 
+            .env
+        volumes:
+            - ./api:/api
         depends_on:
             - db
         links:
