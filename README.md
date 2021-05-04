@@ -53,7 +53,7 @@ A integração contínua foi feita utilizando o GitHub Actions e foram criados t
 
 O _workflow_ da API e do Client tem etapas similares, com dois _jobs_, um de pre-build e um de build e teste. O _job_ de pre-build utiliza o [skip-duplicate-actions](https://github.com/fkirc/skip-duplicate-actions) para otimizar o CI e evitar rodar trabalhos desnecessários, enquanto o de build e teste roda o comando do docker-compose para criar os containers específicos e rodar a verificação da qualidade de código e da cobertura de testes. Eles são executados quando acontecem commits na branch master ou quando são abertor Pull Requests.
 
-O _workflow_ de Coverage é executado na master após a conclusão dos _workflows_ do Client e da API e nele é feita a build do programa, utilizando docker-compose, são gerados os relatórios da cobertura de testes e enviados ao codecov, utilizando a [codecov action](codecov/codecov-action).
+O _workflow_ de Coverage é executado na master após a conclusão dos _workflows_ do Client e da API e nele é feita a build do programa, utilizando docker-compose, são gerados os relatórios da cobertura de testes e enviados ao codecov, utilizando a [codecov action](https://github.com/codecov/codecov-action).
 
 Ainda há um quarto _workflow_ realizado pelo CodeClimate para verificação da qualidade de código por uma ferramenta externa. A configuração desse _workflow_ é feita a partir do arquivo [.codeclimate.yml](./.codeclimate.yml).
 
