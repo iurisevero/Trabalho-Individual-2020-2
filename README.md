@@ -42,7 +42,7 @@ Os resultados esperados do comando são os seguintes:
 
 ![client container log](./images/client_log.png)
 
-Após a build, o aplicativo pode ser acessado no `localhost:8080` e a api pode ser acessada no `localhost:8080/`.
+Após a build, o aplicativo pode ser acessado no `localhost:8080/` e a api pode ser acessada no `localhost:8080/`.
 
 ### 2. Integração contínua
 
@@ -59,4 +59,4 @@ Ainda há um quarto _workflow_ realizado pelo CodeClimate para verificação da 
 
 ### 3. Deploy contínuo
 
-Não foi realizado o deploy da aplicação. :sad:
+Não foi realizado o deploy da aplicação. :/
