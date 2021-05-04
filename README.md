@@ -23,16 +23,24 @@ docker-compose up --build
 ```
 
 Os resultados esperados do comando são os seguintes:
-* Build
-![docker-compose build](./images/build.png)
-* Banco de Dados
-![db container log](./images/db_log.png)
-* API
-![api container log](./images/api_log.png)
-* Client
-![client container log](./images/client_log.png)
 
-Obs: O log do container do banco de dados está apresentando apenas a mensagem de quando o banco já está criado. O log completo ficaria muito grande.
+* Build
+
+![docker-compose build](./images/build.png)
+
+* Banco de Dados
+
+![db container log](./images/db_log.png)
+
+> Obs: O log do container do banco de dados está apresentando apenas a mensagem de quando o banco já está criado. O log completo ficaria muito grande.
+
+* API
+
+![api container log](./images/api_log.png)
+
+* Client
+
+![client container log](./images/client_log.png)
 
 Após a build, o aplicativo pode ser acessado no `localhost:8080` e a api pode ser acessada no `localhost:8080/`.
 
